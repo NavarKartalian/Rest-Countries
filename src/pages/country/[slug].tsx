@@ -5,6 +5,7 @@ import { Box, Button, Flex, Heading, Icon, Text, useColorModeValue } from "@chak
 import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import { BordersCard } from "../../components/BordersCard";
+import Head from 'next/head';
 
 interface CountryProps {
   flags: {
@@ -25,9 +26,10 @@ interface CountryResults {
   result: CountryProps[];
   formattedCurrencies: string;
   formattedLanguages: string;
+  name: string;
 }
 
-export default function Country({ result, formattedCurrencies, formattedLanguages }: CountryResults) {
+export default function Country({ result, formattedCurrencies, formattedLanguages, name }: CountryResults) {
   const bg = useColorModeValue('white', 'hsl(209, 23%, 22%)');
 
   if(!result) {
@@ -36,6 +38,10 @@ export default function Country({ result, formattedCurrencies, formattedLanguage
 
   return (
     <>
+      <Head>
+        <title>{`${name} | Where in the world`}</title>
+      </Head>
+
       <Flex maxW='1440px' mx='auto' padding='8' mt={['8', '16', '16']} direction='column'>
         <Link href='/' passHref>
             <Button w={36} bgColor={bg} boxShadow='md'> 
@@ -106,6 +112,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const response = await api.get(`/name/${slug}?fullText=true`);
     const result = response.data
 
+    const name = result.map(name => {
+      return name.name.common
+    })
+
     const currencies = result.map(currency => {
       return Object.keys(currency.currencies).map(res => {
         return currency.currencies[res].name
@@ -128,6 +138,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       props: {
         result,
+        name,
         formattedCurrencies,
         formattedLanguages
       }

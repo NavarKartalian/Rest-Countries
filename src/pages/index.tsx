@@ -5,6 +5,7 @@ import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
 import { BiChevronDown } from 'react-icons/bi';
 import { CountryList } from "../components/CountryList";
+import Head from 'next/head';
 
 interface CountriesInfoProps {
   name: {
@@ -73,6 +74,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Home | Where in the world</title>
+      </Head>
+
       <Stack
         maxW='1600px'
         mx='auto'
