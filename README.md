@@ -1,13 +1,14 @@
 <h1 align="center">Frontend Mentor - REST Countries API with color theme switcher</h1>
 
 ![Design preview home](./design/Home.png)
+---
 ![Design preview Country](./design/Country.png)
 
 ## Be Welcome!
 
 Thanks for checking out this front-end coding challenge.
 
-You can check the result through this link: [Profile-Card](https://rest-countries-world.vercel.app)
+You can check the result through this link: [Rest Countries](https://rest-countries-world.vercel.app)
 
 [Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
 
