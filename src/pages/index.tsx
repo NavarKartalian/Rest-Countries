@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ErrorPage from 'next/error';
 import { api } from "../services/api";
 import { Stack, Center, Icon, Input, InputGroup, InputLeftElement, Flex, useColorModeValue } from '@chakra-ui/react';
 import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
@@ -6,6 +7,7 @@ import { FiSearch } from 'react-icons/fi';
 import { BiChevronDown } from 'react-icons/bi';
 import { CountryList } from "../components/CountryList";
 import Head from 'next/head';
+import { GetStaticProps } from "next";
 
 interface CountriesInfoProps {
   name: {
@@ -19,21 +21,19 @@ interface CountriesInfoProps {
   };
 }
 
+interface CountriesResults {
+  result: CountriesInfoProps[];
+}
 
-export default function Home() {
-  const [ countriesInfo, setCountriesInfo ] = useState<CountriesInfoProps[]>([]);
+
+export default function Home({ result }: CountriesResults) {
+  const [ countriesInfo, setCountriesInfo ] = useState<CountriesInfoProps[]>(result);
   const [ search, setSearch ] = useState('');
   const [ error, setError ] = useState(false);
   const [ region, setRegion ] = useState('');
 
   const bg = useColorModeValue('white', 'hsl(209, 23%, 22%)');
   const color = useColorModeValue('gray.600', 'white');
-
-  useEffect(() => {
-    api.get('/all').then(({data}) => {
-      setCountriesInfo(data);
-    })
-  }, []);
 
   useEffect(() => {
     if(search === '') {
@@ -71,6 +71,10 @@ export default function Home() {
       }
     })
   }, [region])
+
+  if(!result) {
+    return <ErrorPage statusCode={404} />
+  }
 
   return (
     <>
@@ -131,4 +135,21 @@ export default function Home() {
       </Stack>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const response = await api.get('/all');
+    const result = response.data;
+
+    return {
+      props: {
+        result,
+      }
+    }
+  } catch {
+    return {
+      props: {},
+    }
+  }
 }
