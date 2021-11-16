@@ -8,6 +8,7 @@ import { BiChevronDown } from 'react-icons/bi';
 import { CountryList } from "../components/CountryList";
 import Head from 'next/head';
 import { GetStaticProps } from "next";
+import { Pagination } from "../components/Pagination";
 
 interface CountriesInfoProps {
   name: {
@@ -25,12 +26,19 @@ interface CountriesResults {
   result: CountriesInfoProps[];
 }
 
-
 export default function Home({ result }: CountriesResults) {
   const [ countriesInfo, setCountriesInfo ] = useState<CountriesInfoProps[]>(result);
   const [ search, setSearch ] = useState('');
   const [ error, setError ] = useState(false);
   const [ region, setRegion ] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage] = useState(20);
+
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = countriesInfo.slice(indexOfFirstCountry, indexOfLastCountry);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const bg = useColorModeValue('white', 'hsl(209, 23%, 22%)');
   const color = useColorModeValue('gray.600', 'white');
@@ -120,7 +128,7 @@ export default function Home({ result }: CountriesResults) {
           </Menu>
         </Flex>
 
-        { !! !error && <CountryList countriesInfo={countriesInfo} /> }
+        { !! !error && <CountryList countriesInfo={currentCountries} /> }
         { !! error && 
           <Center 
             align='center' 
@@ -131,7 +139,12 @@ export default function Home({ result }: CountriesResults) {
             Sorry, we could not find what you are searching for 😟
           </Center> 
         }
-        
+        <Pagination 
+          countriesPerPage={countriesPerPage}
+          curPage={currentPage}
+          totalCountries={countriesInfo.length}
+          paginate={paginate} 
+        />
       </Stack>
     </>
   )

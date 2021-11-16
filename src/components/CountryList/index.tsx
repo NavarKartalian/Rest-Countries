@@ -20,7 +20,11 @@ interface CountriesInfoProps {
 
 function CountryListComponent({ countriesInfo }: CountryListProps) {
   return (
-    <Grid templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]} gridRowGap={24} gridColumnGap={32}>
+    <Grid 
+      templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(4, 1fr)", "repeat(4, 1fr)"]} 
+      gridRowGap={12} 
+      gridColumnGap={2}
+      >
       <CountryCard countries={countriesInfo} />
     </Grid>
   );
