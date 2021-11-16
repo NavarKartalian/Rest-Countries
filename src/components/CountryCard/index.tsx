@@ -6,11 +6,11 @@ interface CountriesInfo {
     common: string;
   };
   region: string;
-  subregion: string;
   capital: string;
   flags: {
     svg: string;
   };
+  population: number;
 }
 
 interface CountryCardProps {
@@ -37,8 +37,8 @@ export function CountryCard( { countries }: CountryCardProps ) {
               />
               <Box pl='6' pt='8' pb='8' backgroundColor={bg} borderBottomRadius='md'>
                 <Heading marginBottom='4' fontSize='18px'>{country.name.common}</Heading>
+                <Text as='strong' display='block'>{`Population: `}<Text as='span' fontWeight='600'>{country.population.toLocaleString()}</Text></Text>
                 <Text as='strong' display='block'>{`Region: `}<Text as='span' fontWeight='600'>{country.region}</Text></Text>
-                <Text as='strong' display='block'>{`Subregion: `}<Text as='span' fontWeight='600'>{country.subregion}</Text></Text>
                 <Text as='strong' display='block'>{`Capital: `}<Text as='span' fontWeight='600'>{country.capital}</Text></Text>
               </Box>
             </Box>

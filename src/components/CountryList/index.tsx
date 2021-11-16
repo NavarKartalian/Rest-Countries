@@ -11,11 +11,11 @@ interface CountriesInfoProps {
     common: string;
   };
   region: string;
-  subregion: string;
   capital: string;
   flags: {
     svg: string;
   };
+  population: number;
 }
 
 function CountryListComponent({ countriesInfo }: CountryListProps) {
@@ -23,7 +23,7 @@ function CountryListComponent({ countriesInfo }: CountryListProps) {
     <Grid 
       templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(4, 1fr)", "repeat(4, 1fr)"]} 
       gridRowGap={12} 
-      gridColumnGap={2}
+      gridColumnGap={12}
       >
       <CountryCard countries={countriesInfo} />
     </Grid>

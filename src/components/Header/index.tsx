@@ -9,7 +9,7 @@ export function Header() {
   return (
     <>
       <Box as='header' w='100%' bgColor={bg} p='22px' boxShadow='md'>
-        <Flex direction='row' justify='space-between' maxW='1600px' bgColor={bg} mx='auto' align='center'>
+        <Flex direction='row' justify='space-between' maxW='1292px' bgColor={bg} mx='auto' align='center'>
           <Heading fontSize='24px'>Where in the world?</Heading>
           <Button 
             leftIcon={colorMode === 'light' ? <FiMoon /> : <FiSun />} 

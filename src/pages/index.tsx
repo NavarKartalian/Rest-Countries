@@ -15,11 +15,11 @@ interface CountriesInfoProps {
     common: string;
   };
   region: string;
-  subregion: string;
   capital: string;
   flags: {
     svg: string;
   };
+  population: number;
 }
 
 interface CountriesResults {
@@ -72,6 +72,7 @@ export default function Home({ result }: CountriesResults) {
 
     api.get(`/region/${region}`).then(({data}) => {
       setCountriesInfo(data);
+      setCurrentPage(1);
       setError(false);
     }).catch((err) => {
       if(err.response.status === 404) {
@@ -91,7 +92,7 @@ export default function Home({ result }: CountriesResults) {
       </Head>
 
       <Stack
-        maxW='1600px'
+        maxW='1356px'
         mx='auto'
         mt={'8'}
         p={'8'}
