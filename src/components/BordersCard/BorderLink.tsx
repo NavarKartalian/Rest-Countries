@@ -21,7 +21,12 @@ export function BorderLink({ border, countries }: BorderLinkProps) {
   
   return (
     <Link key={border} href={`/country/${borderName}`} passHref>
-      <Box pr='2' pb='1'>
+      <Box 
+        pr='2' 
+        pb='1'
+        _hover={{transform: "scale(1.1)", transition: '0.5s'}} 
+        transition='0.8s'
+      >
         <Button minW={24} h={'26px'} bgColor={bg} boxShadow='lg' fontSize='14' borderRadius='4' p='4'>
           {borderName}
         </Button>

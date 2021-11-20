@@ -23,7 +23,12 @@ export function CountryCard( { countries }: CountryCardProps ) {
   return (
     <>
       {countries.map(country => (
-        <Box key={country.name.common} mx='auto' minW='288px'>
+        <Box 
+          key={country.name.common}
+          mx='auto' minW='288px' 
+          _hover={{transform: "scale(1.1)", transition: '0.5s'}} 
+          transition='0.5s'
+        >
           <Link href={`/country/${country.name.common}`}>
           <a style={{maxWidth: '288px'}}>
             <Box maxW='72'>

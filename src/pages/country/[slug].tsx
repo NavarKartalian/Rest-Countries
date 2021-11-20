@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { api } from "../../services/api";
 import ErrorPage from 'next/error';
-import { Box, Button, Flex, Heading, Icon, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Icon, Text, useColorModeValue, BoxProps } from "@chakra-ui/react";
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import { BordersCard } from "../../components/BordersCard";
@@ -36,6 +37,8 @@ export default function Country({ result, formattedCurrencies, formattedLanguage
     return <ErrorPage statusCode={404} />
   }
 
+  const MotionBox = motion<BoxProps>(Box);
+
   return (
     <>
       <Head>
@@ -54,7 +57,7 @@ export default function Country({ result, formattedCurrencies, formattedLanguage
           {result.map(country => {
             return (
               <Flex key={country.name.common} direction={['column', 'column','row']}>
-                <Box 
+                <MotionBox 
                   backgroundImage={country.flags.svg} 
                   w='100%'
                   maxW={['580px', '580px', '650px']} 
@@ -62,6 +65,9 @@ export default function Country({ result, formattedCurrencies, formattedLanguage
                   backgroundPosition='center'
                   bgSize='cover'
                   mx='auto'
+                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: '50%' }}
+                  transition={{ duration: '1' }}
                   />
                 <Box pt='12' pl={['0', '8', '16', '32']} maxW='850px' pr='4'>
                   <Heading mb='8'>{country.name.common}</Heading>

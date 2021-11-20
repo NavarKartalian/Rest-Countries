@@ -57,6 +57,7 @@ export default function Home({ result }: CountriesResults) {
 
     api.get(`/name/${search}`).then(({data}) => {
       setCountriesInfo(data);
+      setCurrentPage(1);
       setError(false);
     }).catch((err) => {
       if(err.response.status === 404) {
@@ -137,7 +138,7 @@ export default function Home({ result }: CountriesResults) {
             fontSize='22' 
             fontWeight='bold'
           >
-            Sorry, we could not find what you are searching for 😟
+            Sorry, we could not find what you are searching for 😞
           </Center> 
         }
         <Pagination 
