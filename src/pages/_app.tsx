@@ -9,13 +9,13 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <ChakraProvider theme={theme}>
+      <Header />
       <MotionBox
         key={router.route}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: '0.5' }}
       >
-        <Header />
         <Component {...pageProps} />
       </MotionBox>
     </ChakraProvider>
